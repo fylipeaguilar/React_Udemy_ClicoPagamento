@@ -30,7 +30,7 @@ BillingCycle.route('count', (req, res, next) => {
         //Vamos colocar esse valor dentro de um objeto
         //Mas primeiro vamos tratar o erro
         if(error){
-            res.status(500).json({errors: [error]})
+            res.status(500).json({errors: [error]}) 
         } else {
             res.json({value})
         }

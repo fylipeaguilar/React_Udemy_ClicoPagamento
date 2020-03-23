@@ -1,0 +1,172 @@
+
+
+
+Obs.: para baixar as dependendicas, basta utilizar o comando npm i
+
+
+************** Desenvolvimento ****************
+
+Nas paradas de desenvolvimento (desligamento do PC) e retomanda, é necessário executar os seguintes comando abaixo.
+
+	- Para rodar a aplicação do backend: npm run dev (o comando deve ser executado dentro da pasta D:\Cursos_Aprendizados\Udemy\React\my-money-app\backend);
+	- Subir a aplicação da base de dados: mongod (pode-se executar o comando de qualquer diretório. Após a variável de ambiente "path" estar setada para o mongo);
+	
+
+
+
+************** Backend ****************
+
+(1) Criamos a pasta de backend para inicializar o package.json para baixar as nossas dependências. O comando abaixo cria o arquivo padrão (package.json).
+
+ - Comando: npm init -y
+ 
+(2) Vamos instalar as dependências necessárias para quando a aplicação for para produção
+
+ - Instalar as dependências do express (servidor web);
+ - Instalar as dependências do mongoose (framework: ajuda na persistência + API ADM);
+ - Instalar as dependências do body-parser (interpretar requisição vinda a partr de um formulario/json);
+ - Instalar as dependências do lodash;
+ - Instalar as dependências do mongoose-paginate (paginação das consultas);
+ - Instalar as dependências do express-query-int;
+ - Instalar as dependências do node-restful para integrar o express com o mongoose;
+ - Instalar as dependências do pm2 para disparar a nossa aplicação
+ - Comando: npm i --save express@4.14.0 mongoose@4.7.0 body-parser@1.15.2 lodash@4.17.4 mongoose-paginate@5.0.3 express-query-int@1.0.1 node-restful@0.2.5 pm2@2.1.5
+
+(3) Instalando as dependências de desenvolvimento
+
+ - Instalar as dependências do nodemon para start nossa aplicação no desenvolvimento
+ - Comando: npm i --save nodemon@1.11.0
+ 
+(4) Alteramos no arquivo package.json padrão:
+
+ - campo "name" para ser "my-money-backend";
+ - campo "main" para ser "src/loader.js"
+ - campo "scripts":
+ {
+	"dev": "nodemon",
+    "production": "pm2 start src/loader.js --name my-money-backend"
+ }
+
+(5) criamos o arquivo ".gitignore" dentro da pasta do backend, com as duas linhas abaixo.
+
+node_modules
+*.log
+
+(6) Criamos a pasta "src" onde iremos armazenas o nosso código fonte
+
+(7) Criamos o arquivo "loader.js" que será disparado no inicia da aplicação
+
+(8) Criamos dentro da pasta "src" uma pasta "config" e dentro dela o arquivo "server.js" que será responsável pelo servidor
+
+(9) Dentro do arquivo "loader.js" incluimos as seguintes linhas de código:
+
+ require('./config/server')
+ 
+(10) Dentro do arquivo "server.js" incluimos as seguintes linhas de código:
+
+//definindo uma porta para rodar a aplicação
+const port = 3003
+
+
+//referenciando alguns middle
+const bodyParser = require('body-parser')
+const exrepss = require('express')
+const server = express()
+
+//Para toda requição que checar "use" bodyParse para interpretar quando vier
+//no formato "urlencoded"
+server.use(bodyParser.urlencoded({extended: true}))
+
+//Para toda requição que checar "use" bodyParse para interpretar quando vier
+//no formato "json"
+server.use(bodyParser.json())
+
+//Chama o método "listen" para ficar escutando a porta "3003"
+//e caso a porta consiga ser alocada pelo nosso serviço
+//imprimi no console a mensagem descrita abaixo
+server.listen(port, function() {
+    console.log(`BACKEND is runnig on port ${port}.`)
+})
+
+(11) Rodando a aplicação do desenvolvimento "backend" com o comando "npm run dev"
+
+(12) Configurando a nossa aplicação com o mongdb. 
+
+ - Vamos criar um arquivo database.js no diretório "src/config" com o seguinte conteúdo
+ 
+const mongoose = require('mongoose')
+
+//Pega a API de Promise do Node e atribui a mongoose.Promise
+//Para não gerar warning
+mongoose.Promise = global.Promise
+
+module.exports = mongoose.connect('mongodb://localhost/mymoney')
+
+
+(13) Criando uma pasta "api" dentro do diretório "src"
+
+(14) Criando uma pasta "billingCycle" dentro do diretório "src/api"
+
+(14) Criado o arquivo que billingCycle.js com o mapeamento (ODM)
+
+(15) Criando o arquivo (billingCycleService.js) no diretório "src/api/billingCycle" para fazer os serviços
+
+(16) Configurando as rotas. Entendemos que rotas são configurações e devem ficar no diretório "src/config". Demos o nome de routes.js com o conteúdo:
+
+const express = require('express')
+
+//Para receber o servidor como parâmetros
+module.exports = function(server) {
+
+    // Definir URL base para todas as rotas
+    const router = express.Router()
+
+    //Sempre que a URL começar com "api", ela será direciona para "router"
+    server.use('/api', router)
+
+    //Mapeamento das rotas relacionadas ao clico de pagamento
+    const BillingCycle = require('../api/billingCycle/billingCycleService')
+    BillingCycle.register(router, '/billingCycles')
+}
+
+(17) Criamos também um serviço para contar (count) os registro no mongo (vide billingCycleService.js)
+
+
+********************** IMPORTANTE **********************************
+
+Com a atualização do mongo para versões maiores que 3.6, o mongo começou a apresentar um erro de Cursor ou Pipeline. Para corrigir este erro basta realizarmos as seguintes modificações:
+
+1. Modificar a versão do seu mongoose no package.json para:
+
+"mongoose": "^4.13.19"
+2. No arquivo database.js modificar o module.exports:
+
+module.exports = mongoose.connect('mongodb://localhost/mymoney', { useNewUrlParser: true })
+3. No arquivo billingCycleService.js modificar o agreggate do summary:
+
+BillingCycle.route('summary', (req, res, next) => {
+    BillingCycle.aggregate([{ 
+        $project: {credit: {$sum: "$credits.value"}, debt: {$sum: "$debts.value"}} 
+    }, { 
+        $group: {_id: null, credit: {$sum: "$credit"}, debt: {$sum: "$debt"}}
+    }, { 
+        $project: {_id: 0, credit: 1, debt: 1}
+    }], (error, result) => {
+        if(error) {
+            res.status(500).json({errors: [error]})
+        } else {
+            res.json(result[0] || {credit: 0, debt: 0})
+        }
+    })
+})
+
+****************************************************************************************
+
+(18) Criamos dentro do arquivo billingCycleService.js, criamos um serviço para recuperar o soma dos valores de credito e débito.
+
+(19) Criamos o arquivo "errorHandler.js" dentro do diretório "api/common" para tratar dos erros
+
+(20) Habilitando o CORS (Cross-Origin Resource Sharing - Compartilhamento de recursos com origem diferente)
+
+ - Criamos o arquivo cors.js dentro do diretório "src/config"
+ - Criamos um meaddle
