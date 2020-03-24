@@ -1,0 +1,6 @@
+/* Acessando a classe css do main-footer do arquivo "footer.jsx" */
+.main-footer {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+}
