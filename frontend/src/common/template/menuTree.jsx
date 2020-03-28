@@ -4,7 +4,7 @@ export default props => (
     // treeview é um ícone que tem subitens
 
     <li className='treeview'>
-        <a ref>
+        <a href={props.path}>
             <i className={`fa fa-${props.icon}`}></i>{props.label}
 
             {/* Esse ícone é para dizer se ele está aberto ou fechado */}

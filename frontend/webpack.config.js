@@ -8,11 +8,11 @@ module.exports = {
     //Iniciando a configuração do webpack
     //Configurando a entrada
     entry: './src/index.jsx',
-
+    
     //Configurando a saída
     output: {
         path: __dirname + '/public',
-        filename:  './app.js'
+        filename: './app.js'
     },
 
     //Configurando o servidor
@@ -20,7 +20,7 @@ module.exports = {
         //Configurando a porta que o servidor ficará de pé
         port: 8080,
         //Pasta onde ele vai ler o conteúdo
-        contentBase: './public'
+        contentBase: './public',
     },
 
     resolve: {
@@ -39,7 +39,7 @@ module.exports = {
         new webpack.ProvidePlugin({
             $: 'jquery',
             jQuery: 'jquery',
-            'windows.jQuery': 'jquery'
+            'window.jQuery': 'jquery'
         }),
 
         new ExtractTextPlugin('app.css')
@@ -59,7 +59,7 @@ module.exports = {
             loader: ExtractTextPlugin.extract('style-loader', 'css-loader')
         }, {
             test: /\.woff|.woff2|.ttf|.eot|.svg|.png|.jpg*.*$/,
-            loader:'file'
+            loader: 'file'
         }]
     }
     
