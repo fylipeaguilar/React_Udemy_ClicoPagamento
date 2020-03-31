@@ -26,6 +26,7 @@ class Dashboard extends Component {
 
     //Pra chamar a função getSummary, temos que chamar uma função
     //sempre que o componete for reenderizado
+    //Componente do "ciclo de vida"
     componentWillMount(){
         this.props.getSummary()
     }
@@ -53,7 +54,7 @@ class Dashboard extends Component {
 //Metodo (mapStateToProps)
 const mapStateToProps = state => ({summary: state.dashboard.summary})
 
-//Ligando a action ao component
+//bindActionCreators: Ligando a action create ao component dispatch
 const mapDispatchToProps = dispatch => bindActionCreators({getSummary}, dispatch)
 
 //Temos que exportar os dados para passar para outro component

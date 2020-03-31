@@ -3,8 +3,11 @@ import React from 'react'
 //Importando do React-Router
 import {Router, Route, Redirect, hashHistory}  from 'react-router'
 
-//Os componetes que entram nas rotas tem que ser importados
-import Dashboard from '../dashboard/dashboard'
+//****************** SEM O REDUX **************************************/
+// //Os componetes que entram nas rotas tem que ser importados
+// import Dashboard from '../dashboard/dashboard'
+import Dashboard from '../dashboard2/dashboard2'
+//****************** SEM O REDUX **************************************/
 import BillingCycle from '../billingCycle/billingCycle'
 
 
@@ -15,3 +18,4 @@ export default props => (
         <Redirect from='*' to='/'></Redirect>
     </Router>
 )
+''

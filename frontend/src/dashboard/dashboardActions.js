@@ -13,6 +13,7 @@ export function getSummary() {
     //Esse objeto é uma ação
     return {
         type: 'BILLING_SUMMARY_FETCHED',
+        //O resultado "payload" é um promise
         payload: request
     }
 }
