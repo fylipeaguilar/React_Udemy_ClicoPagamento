@@ -16,3 +16,25 @@ export function selectTab(tabId) {
     }
 
 }
+
+// Exemplificando.
+// Vamos receber um método com vários parâmetros, como no exemplo abaixo
+// showTabs('tabList', 'tabCreate')
+
+// Usando o spread (showTabs(...tabIds)) = ele vai colocano os valores num array
+
+export function showTabs(...tabIds) {
+
+    // Criando um objeto para informa os atributos de cada aba
+    const tabsToShow = {}
+    tabIds.forEach( e => tabsToShow[e] = true)
+
+    // Lembrando que toda action tem que ter um atributo "type"
+    return {
+
+        type: 'TAB_SHOWED', 
+        payload: tabsToShow
+
+    }
+
+}

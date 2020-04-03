@@ -18,7 +18,10 @@ import TabHeader from '../common/tab/tabHeader'
 import TabContent from '../common/tab/tabContent'
 
 // Para deixar a aba "lista" como padrão de exibição
-import { selectTab } from '../common/tab/tabActions'
+import { selectTab, showTabs } from '../common/tab/tabActions'
+
+// Importando a componente com os dados da tabela da lista
+import List from './billingCycleList'
 
 class BillingCycle extends Component { 
 
@@ -26,6 +29,7 @@ class BillingCycle extends Component {
     componentWillMount() {
 
         this.props.selectTab('tabList')
+        this.props.showTabs('tabList', 'tabCreate')
 
     }
 
@@ -34,7 +38,7 @@ class BillingCycle extends Component {
         return (
 
             <div>
-                <ComponetHeader title='Ciclos de pagamentos' small='Cadastro'/>
+                <ComponetHeader title='Ciclos de pagamentos' small='Cadastro (React-Redux)'/>
                 <Content>
                     <Tabs>
                         <TabsHeader>
@@ -46,7 +50,9 @@ class BillingCycle extends Component {
                         </TabsHeader>
                         <TabsContent>
                             {/* Vamos chamar 4 TabContent. Um para cada "aba" */}
-                            <TabContent id='tabList'><h1>Lista</h1></TabContent>
+                            <TabContent id='tabList'>
+                                <List />                     
+                            </TabContent>
                             <TabContent id='tabCreate'><h1>Inclir</h1></TabContent>
                             <TabContent id='tabUpdate'><h1>Alterar</h1></TabContent>
                             <TabContent id='tabLtaDeleteist'><h1>Excluir</h1></TabContent>
@@ -62,6 +68,6 @@ class BillingCycle extends Component {
 }
 
 
-const mapDispatchToProps = dispatch => bindActionCreators( { selectTab }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators( { selectTab, showTabs }, dispatch)
 
 export default connect(null, mapDispatchToProps)(BillingCycle)

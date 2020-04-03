@@ -7,11 +7,17 @@ import DashboardReducer from '../dashboard/dashboardReducer'
 // Importando o Reducer para as "ABAS"
 import TabReducer from '../common/tab/tabReducer'
 
+// Importando o Reducer para BillingCylcle
+import BillingCylcleReducer from '../billingCycle/billingCycleReducer'
+
 const rootReducer = combineReducers({
+
+    // **** ATRIBUTOS DO STADO GLOBAL DA APLICACAO******//
     // O reducer é uma função pura e recebe 2 parametros
     // parâmetros: (estado, ação que foi disparada para que o reducer fosse chamado)
     dashboard: DashboardReducer,
-    tab: TabReducer
+    tab: TabReducer,
+    billingCycle: BillingCylcleReducer
 
 
     // ********** ANTIGO: Fixo para teste *****************

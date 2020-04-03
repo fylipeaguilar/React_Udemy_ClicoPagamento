@@ -5,9 +5,8 @@ import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
-
+import If from '../operador/if'
 import { selectTab } from './tabActions'
-
 
 class TabHeader extends Component {
 
@@ -16,23 +15,27 @@ class TabHeader extends Component {
         // Avalidando se a aba está selecionada ou não
         // Esse parâmetro (this.props.tab.selected) representa uma string
         const selected = this.props.tab.selected === this.props.target
+        const visible = this.props.tab.visible[this.props.target]
 
         return (
 
-            // Estrutura básica para renderezir uma única aba
-            // Baseada no template do AdminTLE
-            <li className={ selected ? 'active' : ''}>
-                {/* O link (javascript:;) é para ignorar qualquer link */}
-                <a href='javascript:;'
-                    data-toggle='tab'
-                    data-target={this.props.target}
-                    
-                    // Mapeando o evento do "onClick"
-                    onClick={()=> this.props.selectTab(this.props.target)}>
-                    <i className={`fa fa-${this.props.icon}`}></i>
-                    {this.props.label}
-                </a>
-            </li>
+            // Para escolher as abas que serão exibidas
+            <If test = { visible }>
+                {/* // Estrutura básica para renderezir uma única aba
+                // Baseada no template do AdminTLE */}
+                <li className={ selected ? 'active' : ''}>
+                    {/* O link (javascript:;) é para ignorar qualquer link */}
+                    <a href='javascript:;'
+                        data-toggle='tab'
+                        data-target={this.props.target}
+                        
+                        // Mapeando o evento do "onClick"
+                        onClick={()=> this.props.selectTab(this.props.target)}>
+                        <i className={`fa fa-${this.props.icon}`}></i>
+                        {this.props.label}
+                    </a>
+                </li>
+            </If>
         )
 
     }
