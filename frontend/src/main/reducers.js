@@ -1,13 +1,17 @@
-//Precisamoes utilizar o método do redux "combineReducers"
+// Precisamoes utilizar o método do redux "combineReducers"
 import { combineReducers } from 'redux'
 
-//Precisamos importar o "DashBoardReducer"
+// Precisamos importar o "DashBoardReducer"
 import DashboardReducer from '../dashboard/dashboardReducer'
+
+// Importando o Reducer para as "ABAS"
+import TabReducer from '../common/tab/tabReducer'
 
 const rootReducer = combineReducers({
     // O reducer é uma função pura e recebe 2 parametros
     // parâmetros: (estado, ação que foi disparada para que o reducer fosse chamado)
-    dashboard: DashboardReducer
+    dashboard: DashboardReducer,
+    tab: TabReducer
 
 
     // ********** ANTIGO: Fixo para teste *****************

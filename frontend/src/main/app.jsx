@@ -1,10 +1,10 @@
-import '../common/template/dependecies'
+import '../common/template/dependencies'
 import React from 'react'
 
 //Importando o Header
 import Header from '../common/template/header'
 //Importando o sidebar
-import Sidebar from '../common/template/sidebar'
+import SideBar from '../common/template/sideBar'
 //Importando o Footer (rodapé da aplicação)
 import Footer from '../common/template/footer'
 
@@ -13,23 +13,23 @@ import Routes from './routes'
 
 export default props => (
     // wrapper é uma classe do admin LTE
-    <div className="wrapper">
+    <div className='wrapper'>
     
         {/* Instanciando a tag Header */}
-        <Header/>
+        <Header />
         
         {/* Instanciando a tag Sidebar */}
-        <Sidebar/>
+        <SideBar />
 
         {/* Entre o sidebar e o footer teremos uma div
         que é a div que vai ter o conteúdo da nossa aplicação */}
 
         <div className='content-wrapper'>
-            <Routes/>
+            <Routes />
         </div>
 
         {/* Instanciando o Footer */}
-        <Footer/>
+        <Footer />
 
     </div>
 )
