@@ -1,6 +1,9 @@
 // Importando o axios para fazer a conexao com a base de dados
 import axios from 'axios'
 
+// // Importando o "toastr"
+// import { toastr } from 'react-redux-toastr'
+
 // Configurando o endereço que o axion vai acessar a nossa API
 // Obs.: Para funcionar o nosso servidor de backend tem que estar em pé
 // Diretório: d/Cursos_Aprendizados/Udemy/React/my-money-app/frontend
@@ -19,8 +22,25 @@ export function getList() {
         // "ID da action"
         type: 'BILLING_CYCLES_FETCHED',
         // Payload é o resultado da requisicao
-        playload: request
+        payload: request
 
+    }
+
+}
+
+export function create(values) {
+
+    // console.log(values) // o axion retorna uma promise
+    axios.post(`${BASE_URL}/BillingCycles`, values)
+        // .then(resp => {
+
+        //     toastr.success('Sucesso', 'Operação Realizada com sucesso.')
+
+        // })
+    return {
+
+        type: 'TEMP',
+    
     }
 
 }

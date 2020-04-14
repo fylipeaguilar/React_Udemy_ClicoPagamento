@@ -14,13 +14,33 @@ class BillingCycleList extends Component {
     componentWillMount () {
 
         this.props.getList()
-        console.log(this.props.list)
+        // console.log(this.props.list)
+
+    }
+
+    renderRows() {
+
+        // Declarando a list para receber os parâmetros
+        // ou cria um array vazio
+        const list = this.props.list || []
+
+        // O método "map" percorre cada um dos elementos do array
+        // e retorna um array de mesmo tamanho (mapeando um array para outro)
+        // Essa recebendo um array de objeto e retornando um array de jsx (linha da tabela) 
+        return list.map(bc => (
+            <tr key={bc._id}>
+                <td>{bc.name}</td>
+                <td>{bc.month}</td>
+                <td>{bc.year}</td>
+            </tr>
+        ))
 
     }
 
 
     render () {
 
+        console.log(this.props.list)
         // Retorna uma expressão com o nosso jsx
         return (
 
@@ -33,10 +53,12 @@ class BillingCycleList extends Component {
                             <th>Mes</th>
                             <th>Ano</th>
                         </tr>
-                        <tbody>
-
-                        </tbody>
                     </thead>
+                    <tbody>
+                        {/* Colonado um chamada para renderizar 
+                        as linhas dessa tabela */}
+                        {this.renderRows()}
+                    </tbody>
                 </table>
             </div>
 

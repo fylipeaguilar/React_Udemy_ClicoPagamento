@@ -19,9 +19,14 @@ import TabContent from '../common/tab/tabContent'
 
 // Para deixar a aba "lista" como padrão de exibição
 import { selectTab, showTabs } from '../common/tab/tabActions'
+// Declarando as actions do BillingCycles
+import { create } from './billingCycleActions'
+
 
 // Importando a componente com os dados da tabela da lista
 import List from './billingCycleList'
+// Importando o componente de formulário (Redux-Form)
+import Form from './billingCycleForm'
 
 class BillingCycle extends Component { 
 
@@ -53,7 +58,9 @@ class BillingCycle extends Component {
                             <TabContent id='tabList'>
                                 <List />                     
                             </TabContent>
-                            <TabContent id='tabCreate'><h1>Inclir</h1></TabContent>
+                            <TabContent id='tabCreate'>
+                                <Form onSubmit={this.props.create} />
+                            </TabContent>
                             <TabContent id='tabUpdate'><h1>Alterar</h1></TabContent>
                             <TabContent id='tabLtaDeleteist'><h1>Excluir</h1></TabContent>
                         </TabsContent>
@@ -68,6 +75,8 @@ class BillingCycle extends Component {
 }
 
 
-const mapDispatchToProps = dispatch => bindActionCreators( { selectTab, showTabs }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({ 
+    selectTab, showTabs, create 
+}, dispatch)
 
 export default connect(null, mapDispatchToProps)(BillingCycle)

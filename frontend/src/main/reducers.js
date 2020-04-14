@@ -1,6 +1,13 @@
 // Precisamoes utilizar o método do redux "combineReducers"
 import { combineReducers } from 'redux'
 
+// Importando o Redux Form
+import { reducer as formReducer } from 'redux-form'
+
+// Declarando o "reducer" das mensagens
+import { reducer as toastrReducer } from 'react-redux-toastr'
+
+
 // Precisamos importar o "DashBoardReducer"
 import DashboardReducer from '../dashboard/dashboardReducer'
 
@@ -17,8 +24,9 @@ const rootReducer = combineReducers({
     // parâmetros: (estado, ação que foi disparada para que o reducer fosse chamado)
     dashboard: DashboardReducer,
     tab: TabReducer,
-    billingCycle: BillingCylcleReducer
-
+    billingCycle: BillingCylcleReducer,
+    form: formReducer,
+    tosatr: toastrReducer
 
     // ********** ANTIGO: Fixo para teste *****************
     // dashboard: () => ({summary: {credit: 100, debt: 50}})

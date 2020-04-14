@@ -11,6 +11,9 @@ import Footer from '../common/template/footer'
 //Importando o arquivo responsável pelas rotas
 import Routes from './routes'
 
+//Importando o "messages" para mostrar o css
+import Messages from '../common/msg/messages'
+
 export default props => (
     // wrapper é uma classe do admin LTE
     <div className='wrapper'>
@@ -30,6 +33,9 @@ export default props => (
 
         {/* Instanciando o Footer */}
         <Footer />
+
+        {/* Instanciando componente Messages*/}
+        <Messages /> 
 
     </div>
 )
