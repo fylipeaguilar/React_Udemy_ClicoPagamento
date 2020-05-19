@@ -26,7 +26,7 @@ const rootReducer = combineReducers({
     tab: TabReducer,
     billingCycle: BillingCylcleReducer,
     form: formReducer,
-    tosatr: toastrReducer
+    toastr: toastrReducer
 
     // ********** ANTIGO: Fixo para teste *****************
     // dashboard: () => ({summary: {credit: 100, debt: 50}})

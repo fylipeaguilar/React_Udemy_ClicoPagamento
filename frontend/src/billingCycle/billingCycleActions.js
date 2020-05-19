@@ -1,8 +1,12 @@
 // Importando o axios para fazer a conexao com a base de dados
 import axios from 'axios'
 
-// // Importando o "toastr"
-// import { toastr } from 'react-redux-toastr'
+// Impontando os reset para reset de formulários
+import { reset as resetForm } from 'redux-form'
+import { showTabs, selectTab } from '../common/tab/tabActions'
+
+// Importando o "toastr"
+import { toastr } from 'react-redux-toastr'
 
 // Configurando o endereço que o axion vai acessar a nossa API
 // Obs.: Para funcionar o nosso servidor de backend tem que estar em pé
@@ -30,17 +34,33 @@ export function getList() {
 
 export function create(values) {
 
-    // console.log(values) // o axion retorna uma promise
-    axios.post(`${BASE_URL}/BillingCycles`, values)
-        // .then(resp => {
+    return dispatch => {
 
-        //     toastr.success('Sucesso', 'Operação Realizada com sucesso.')
+        // console.log(values) // o axion retorna uma promise
+        axios.post(`${BASE_URL}/BillingCycles`, values)
+            .then(resp => {
 
-        // })
-    return {
+                toastr.success('Sucesso', 'Operação Realizada com sucesso.')
+                // O dispatch recebe uma action
+                // So podemos ter um dispatch de um array
+                // porque estamos usando o meaddle multi
+                dispatch([
 
-        type: 'TEMP',
-    
+                    resetForm('billingCycleForm'),
+                    getList(),
+                    selectTab ('tabList'),
+                    showTabs('tabList', 'tabCreate')
+
+                ])
+
+            })
+            .catch(e => {
+
+                // O erros é sempre um array
+                e.response.data.errors.forEach(error => toastr.error('Erro', error));
+
+            })    
+
     }
-
+    
 }
