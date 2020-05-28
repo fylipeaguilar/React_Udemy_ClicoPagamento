@@ -29,6 +29,7 @@ class Dashboard extends Component {
     //Componente do "ciclo de vida"
     componentWillMount(){
         this.props.getSummary()
+        console.log(this.props.getSummary())
     }
 
     render() {
@@ -38,12 +39,12 @@ class Dashboard extends Component {
                 <ContentHeader title='Dashboard' small='Versão 1.0'/>
                 <Content>
                     <Row>
-                        <ValueBox cols='12 4' color='green' icon='bank'
+                        <ValueBox cols='12 4' color='yellow' icon='bank'
                             value={`R$ ${credit}`} text='Total de Créditos'/>
                         <ValueBox cols='12 4' color='red' icon='credit-card'
                             value={`R$ ${debt}`} text='Total de Débitos'/>
                         <ValueBox cols='12 4' color='blue' icon='money'
-                            value={`R$ ${debt - debt}`} text='Valor Consolidado'/>
+                            value={`R$ ${credit - debt}`} text='Valor Consolidado'/>
                     </Row>
                 </Content>
             </div>

@@ -14,8 +14,13 @@ import promise from 'redux-promise'
 import multi from 'redux-multi'
 import thunk from 'redux-thunk'
 
-//Importando o arquivo app.jsx
-import App from './main/app'
+// Antes da aula 185
+// Importando o arquivo app.jsx
+// import App from './main/app'
+
+// Após a aula 185 
+import Routes from './main/routes'
+
 //Importar o Reducers (os que criamos)
 import reducers from './main/reducers'
 
@@ -35,7 +40,12 @@ ReactDOM.render(
     // O "app" do document.getElementById deve ser o mesmo valor
     // inserido no arquivo index.html
     <Provider store={store}>
-        <App/>
+
+        {/* Depois da aula 185 */}
+        <Routes></Routes>
+
+        {/* Antes da aula 185
+        <App/> */}
     </Provider>,
 
     document.getElementById('app')

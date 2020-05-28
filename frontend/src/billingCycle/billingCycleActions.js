@@ -15,7 +15,7 @@ import { toastr } from 'react-redux-toastr'
 const BASE_URL = ' http://localhost:3003/api'
 
 // Criando uma constante para carregar os valores iniciais da aplicação
-const INITIAL_VALUES = {credits:[{}]}
+const INITIAL_VALUES = {credits:[{}], debts:[{}]}
 
 // Funcao para coletar os dados do ciclo de pagamento
 export function getList() {

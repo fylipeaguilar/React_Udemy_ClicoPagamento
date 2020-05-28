@@ -1,7 +1,11 @@
 import React from 'react'
 
 //Importando do React-Router
-import {Router, Route, Redirect, hashHistory}  from 'react-router'
+// Obs.: O indexRouter foi adicionado na aula 185
+import {Router, Route, IndexRoute, Redirect, hashHistory}  from 'react-router'
+
+// Obs.: Esse import foi adicionado na aula 185
+import App from './app'
 
 // import App from './app'
 //****************** SEM O REDUX **************************************/
@@ -14,8 +18,19 @@ import BillingCycle from '../billingCycle/billingCycle'
 
 export default props => (
     <Router history={hashHistory}>
-        <Route path='/' component={Dashboard}></Route>
-        <Route path='/billingCycles' component={BillingCycle}></Route>
+        {/* Obs.: Esse trecho foi adicionado na aula 185 */}
+        <Route path='/' component={App}>
+            <IndexRoute component={Dashboard}></IndexRoute>
+            <Route path='billingCycles' component={BillingCycle}></Route>
+        </Route>
+       
         <Redirect from='*' to='/'></Redirect>
+        {/* Fim do código adicionado */}
+
+        {/* Código antigo */}
+            {/* <Route path='/' component={Dashboard}></Route>
+            <Route path='/billingCycles' component={BillingCycle}></Route>
+            <Redirect from='*' to='/'></Redirect> */}
+        {/* Fim do Código antigo */}
     </Router>
 )

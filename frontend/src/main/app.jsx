@@ -8,8 +8,9 @@ import SideBar from '../common/template/sideBar'
 //Importando o Footer (rodapé da aplicação)
 import Footer from '../common/template/footer'
 
+//Usava antes da aula 185
 //Importando o arquivo responsável pelas rotas
-import Routes from './routes'
+// import Routes from './routes'
 
 //Importando o "messages" para mostrar o css
 import Messages from '../common/msg/messages'
@@ -28,7 +29,13 @@ export default props => (
         que é a div que vai ter o conteúdo da nossa aplicação */}
 
         <div className='content-wrapper'>
-            <Routes />
+
+            {/* Alteração da aula 185 (Rota) */}
+            {props.children}
+
+            {/* Antes da alteração da aula 185
+                <Routes />
+            */}
         </div>
 
         {/* Instanciando o Footer */}
